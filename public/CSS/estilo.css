@@ -1,0 +1,15 @@
+#title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#forma_alta_empleado {
+    background-color: rgb(240, 240, 240);
+    padding: 16px;
+    border-radius: 8px;
+}
+
+#accion_titulo_alta{
+    color: rgb(111, 152, 152)
+}
