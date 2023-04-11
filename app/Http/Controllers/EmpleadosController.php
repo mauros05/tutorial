@@ -12,6 +12,21 @@ class EmpleadosController extends Controller
         return view('vistabootstrap');
     }
 
+    public function listar_empleados(){
+        $consulta = empleados::join('roles','empleados.id_tipo_empleado', '=', 'roles.id')
+                            ->select('empleados.id',
+                                     'empleados.nombre',
+                                     'empleados.ap_pat',
+                                     'empleados.ap_mat',
+                                     'roles.nombre as role',
+                                     'empleados.email')
+                            ->orderBy('empleados.nombre')
+                            ->get();
+
+        return view('listarempleados')
+                ->with('consulta', $consulta);
+    }
+
     public function alta_empleado(){
         $idEmpleado = empleados::orderBy('id', 'DESC')
                                 ->take(1)->get();

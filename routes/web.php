@@ -31,6 +31,7 @@ Route::get('/',[EmpleadosController::class, 'bootstrap'])->name('bootstrapview')
 Route::get('alta_empleado',[EmpleadosController::class, 'alta_empleado'])->name('alta_empleado');
 Route::post('guardar_empleado',[EmpleadosController::class, 'guardar_empleado'])->name('guardar_empleado');
 
+Route::get('listar_empleados',[EmpleadosController::class, 'listar_empleados'])->name('listar_empleados');
 
 Route::get('eloquent', [EmpleadosController::class,'eloquent'])->name('eloquent');
 
