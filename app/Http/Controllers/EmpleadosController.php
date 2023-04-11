@@ -83,7 +83,25 @@ class EmpleadosController extends Controller
         return view('vistaempleado')
                 ->with('proceso',$proceso)
                 ->with('mensaje',$mensaje)
-                ->with('alert', 'success');
+                ->with('error', 0);
+    }
+
+    public function modificar_empleado($id_empleado){
+        $consultaRoles = roles::orderBy('nombre')->get(['id','nombre']);
+
+        $consultaEmpleado = empleados::where('id',$id_empleado)->get();
+
+        $dataEmpleado = $consultaEmpleado[0];
+
+        // return $dataEmpleado->id;
+
+        return  view('modificarempleado')
+                ->with('consultaRoles', $consultaRoles)
+                ->with('dataEmpleado', $dataEmpleado);
+    }
+
+    public function actualizar_empleado(){
+        
     }
 
     public function desactivar_empleado($id_empleado){
@@ -96,7 +114,7 @@ class EmpleadosController extends Controller
         return view('vistaempleado')
                 ->with('proceso',$proceso)
                 ->with('mensaje',$mensaje)
-                ->with('alert', 'warning');
+                ->with('error', 0);
     }
 
     public function activar_empleado($id_empleado){
@@ -110,7 +128,7 @@ class EmpleadosController extends Controller
         return view('vistaempleado')
                 ->with('proceso',$proceso)
                 ->with('mensaje',$mensaje)
-                ->with('alert', 'success');        
+                ->with('error', 0);        
     }
 
     public function borrar_empleado($id_empleado){
@@ -128,7 +146,7 @@ class EmpleadosController extends Controller
             return view('vistaempleado')
                     ->with('proceso',$proceso)
                     ->with('mensaje',$mensaje)
-                    ->with('alert', 'warning');  
+                    ->with('error', 0);  
         } else {
             $proceso = "Borrar Empleado";
             $mensaje = "No ha sido posible Borrar el empleado";
@@ -136,7 +154,7 @@ class EmpleadosController extends Controller
             return view('vistaempleado')
                     ->with('proceso',$proceso)
                     ->with('mensaje',$mensaje)
-                    ->with('alert', 'danger');  
+                    ->with('error', 1);  
         }
     }
     

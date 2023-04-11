@@ -40,6 +40,10 @@ Route::get('desactivar_empleado/{id_empleado}', [EmpleadosController::class, 'de
 Route::get('activar_empleado/{id_empleado}', [EmpleadosController::class, 'activar_empleado'])->name('activar_empleado');
 Route::get('borrar_empleado/{id_empleado}', [EmpleadosController::class, 'borrar_empleado'])->name('borrar_empleado');
 
+// MODIFICAR EMPLEADO
+Route::get('modificar_empleado/{id_empleado}',[EmpleadosController::class, 'modificar_empleado'])->name('modificar_empleado');
+Route::post('actualizar_empleado',[EmpleadosController::class, 'actualizar_empleado'])->name('actualizar_empleado');
+
 // ELOQUENT
 Route::get('eloquent', [EmpleadosController::class,'eloquent'])->name('eloquent');
 

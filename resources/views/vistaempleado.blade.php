@@ -3,6 +3,10 @@
 @section('contenido')
     <div class="container">
         <h2>Proceso: {{$proceso}}</h2>
-        <div class="alert alert-{{$alert}}">{{$mensaje}}</div>
+        @if ($error == 0)
+            <div class="alert alert-success">{{$mensaje}}</div>
+        @else
+            <div class="alert alert-warning">{{$mensaje}}</div>
+        @endif
     </div>
 @stop

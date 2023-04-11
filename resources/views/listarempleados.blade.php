@@ -31,7 +31,9 @@
                                     <button class="btn btn-danger">Borrar</button>
                                 </a>
                             @endif
-                            <button class="btn btn-primary">Modificar</button>
+                            <a href="{{route('modificar_empleado',['id_empleado'=>$data->id])}}">
+                                <button class="btn btn-primary">Modificar</button>
+                            </a>
                         </td>
                     </tr>
                 @endforeach
