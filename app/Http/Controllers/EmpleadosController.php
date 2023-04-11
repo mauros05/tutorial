@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\empleados;
 use App\Models\roles;
+use App\Models\nominas;
 
 class EmpleadosController extends Controller
 {
@@ -83,6 +84,9 @@ class EmpleadosController extends Controller
                 ->with('mensaje',$mensaje);
     }
 
+    public function desactivar_empleado($id_empleado){
+        return $id_empleado;
+    }
     
     public function eloquent(){
         // CONSULTAR TODOS LOS DATOS DE LA TABLA

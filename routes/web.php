@@ -28,11 +28,18 @@ Route::get('inicio/{nombre}/{dias_trabajados}',[EmpleadosController::class,'salu
 Route::get('salir_nomina',[EmpleadosController::class, 'salir'])->name('salir');
 Route::get('/',[EmpleadosController::class, 'bootstrap'])->name('bootstrapview');
 
+// CREAR EMPLEADOS
 Route::get('alta_empleado',[EmpleadosController::class, 'alta_empleado'])->name('alta_empleado');
 Route::post('guardar_empleado',[EmpleadosController::class, 'guardar_empleado'])->name('guardar_empleado');
 
+// LISTAR EMPLEADOS
 Route::get('listar_empleados',[EmpleadosController::class, 'listar_empleados'])->name('listar_empleados');
 
+// BORRAR EMPLEADOS
+Route::get('desactivar_empleado/{id_empleado}', [EmpleadosController::class, 'desactivar_empleado'])->name('desactivar_empleado');
+
+
+// ELOQUENT
 Route::get('eloquent', [EmpleadosController::class,'eloquent'])->name('eloquent');
 
 

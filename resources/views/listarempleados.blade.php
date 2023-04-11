@@ -9,7 +9,7 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Rol</th>
                 <th scope="col">Correo</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -18,7 +18,10 @@
                         <td>{{$data->nombre}} {{$data->ap_pat}} {{$data->ap_mat}}</td>
                         <td>{{$data->role}}</td>
                         <td>{{$data->email}}</td>
-                        <td></td>
+                        <td>
+                            <button class="btn btn-primary">Modificar</button>
+                            <a href="{{route('desactivar_empleado',['id_empleado'=>$data->id])}}"><button class="btn btn-danger">Borrar</button></a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
