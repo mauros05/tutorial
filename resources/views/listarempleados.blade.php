@@ -21,11 +21,14 @@
                         <td>
                             @if ($data->deleted_at == NULL)
                                 <a href="{{route('desactivar_empleado',['id_empleado'=>$data->id])}}">
-                                    <button class="btn btn-danger">Borrar</button>
+                                    <button class="btn btn-warning">Desactivar</button>
                                 </a>
                             @else
                                 <a href="{{route('activar_empleado',['id_empleado'=>$data->id])}}">
                                     <button class="btn btn-success">Activar</button>
+                                </a>
+                                <a href="{{route('borrar_empleado',['id_empleado'=>$data->id])}}">
+                                    <button class="btn btn-danger">Borrar</button>
                                 </a>
                             @endif
                             <button class="btn btn-primary">Modificar</button>

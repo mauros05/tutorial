@@ -80,9 +80,10 @@ class EmpleadosController extends Controller
         $proceso = "Alta Empleado";
         $mensaje = "Empleado ($request->nombre $request->ap_pat $request->ap_mat) guardado Correctamente";
 
-        return view('guardarempleado')
+        return view('vistaempleado')
                 ->with('proceso',$proceso)
-                ->with('mensaje',$mensaje);
+                ->with('mensaje',$mensaje)
+                ->with('alert', 'success');
     }
 
     public function desactivar_empleado($id_empleado){
@@ -92,9 +93,10 @@ class EmpleadosController extends Controller
         $proceso = "Desactivar Empleado";
         $mensaje = "Empleado Desactivado Correctamente";
 
-        return view('guardarempleado')
+        return view('vistaempleado')
                 ->with('proceso',$proceso)
-                ->with('mensaje',$mensaje);
+                ->with('mensaje',$mensaje)
+                ->with('alert', 'warning');
     }
 
     public function activar_empleado($id_empleado){
@@ -105,9 +107,37 @@ class EmpleadosController extends Controller
         $proceso = "Activar Empleado";
         $mensaje = "Empleado Activado Correctamente";
 
-        return view('guardarempleado')
+        return view('vistaempleado')
                 ->with('proceso',$proceso)
-                ->with('mensaje',$mensaje);         
+                ->with('mensaje',$mensaje)
+                ->with('alert', 'success');        
+    }
+
+    public function borrar_empleado($id_empleado){
+        $consultaNomina = nominas::where('id_empleado','=',$id_empleado)->get();
+        $numeroRegistros = count($consultaNomina);
+
+        if($numeroRegistros == 0){
+            empleados::withTrashed()
+                    ->find($id_empleado)
+                    ->forceDelete();
+
+            $proceso = "Borrar Empleado";
+            $mensaje = "Empleado Borrado Correctamente";
+
+            return view('vistaempleado')
+                    ->with('proceso',$proceso)
+                    ->with('mensaje',$mensaje)
+                    ->with('alert', 'warning');  
+        } else {
+            $proceso = "Borrar Empleado";
+            $mensaje = "No ha sido posible Borrar el empleado";
+
+            return view('vistaempleado')
+                    ->with('proceso',$proceso)
+                    ->with('mensaje',$mensaje)
+                    ->with('alert', 'danger');  
+        }
     }
     
     public function eloquent(){
