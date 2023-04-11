@@ -37,7 +37,7 @@ Route::get('listar_empleados',[EmpleadosController::class, 'listar_empleados'])-
 
 // BORRAR EMPLEADOS
 Route::get('desactivar_empleado/{id_empleado}', [EmpleadosController::class, 'desactivar_empleado'])->name('desactivar_empleado');
-
+Route::get('activar_empleado/{id_empleado}', [EmpleadosController::class, 'activar_empleado'])->name('activar_empleado');
 
 // ELOQUENT
 Route::get('eloquent', [EmpleadosController::class,'eloquent'])->name('eloquent');

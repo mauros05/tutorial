@@ -19,8 +19,16 @@
                         <td>{{$data->role}}</td>
                         <td>{{$data->email}}</td>
                         <td>
+                            @if ($data->deleted_at == NULL)
+                                <a href="{{route('desactivar_empleado',['id_empleado'=>$data->id])}}">
+                                    <button class="btn btn-danger">Borrar</button>
+                                </a>
+                            @else
+                                <a href="{{route('activar_empleado',['id_empleado'=>$data->id])}}">
+                                    <button class="btn btn-success">Activar</button>
+                                </a>
+                            @endif
                             <button class="btn btn-primary">Modificar</button>
-                            <a href="{{route('desactivar_empleado',['id_empleado'=>$data->id])}}"><button class="btn btn-danger">Borrar</button></a>
                         </td>
                     </tr>
                 @endforeach

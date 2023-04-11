@@ -14,13 +14,14 @@ class EmpleadosController extends Controller
     }
 
     public function listar_empleados(){
-        $consulta = empleados::join('roles','empleados.id_tipo_empleado', '=', 'roles.id')
+        $consulta = empleados::withTrashed()->join('roles','empleados.id_tipo_empleado', '=', 'roles.id')
                             ->select('empleados.id',
                                      'empleados.nombre',
                                      'empleados.ap_pat',
                                      'empleados.ap_mat',
                                      'roles.nombre as role',
-                                     'empleados.email')
+                                     'empleados.email',
+                                     'empleados.deleted_at')
                             ->orderBy('empleados.nombre')
                             ->get();
 
@@ -85,7 +86,28 @@ class EmpleadosController extends Controller
     }
 
     public function desactivar_empleado($id_empleado){
-        return $id_empleado;
+        $empleados = empleados::find($id_empleado);
+        $empleados->delete();
+
+        $proceso = "Desactivar Empleado";
+        $mensaje = "Empleado Desactivado Correctamente";
+
+        return view('guardarempleado')
+                ->with('proceso',$proceso)
+                ->with('mensaje',$mensaje);
+    }
+
+    public function activar_empleado($id_empleado){
+        empleados::withTrashed()
+                    ->where('id',$id_empleado)
+                    ->restore();
+
+        $proceso = "Activar Empleado";
+        $mensaje = "Empleado Activado Correctamente";
+
+        return view('guardarempleado')
+                ->with('proceso',$proceso)
+                ->with('mensaje',$mensaje);         
     }
     
     public function eloquent(){
