@@ -23,7 +23,7 @@ class EmpleadosController extends Controller
             $nuevoId = $id + 1;
         }
         
-        $consultaRoles = roles::get(['id','nombre']);
+        $consultaRoles = roles::orderBy('nombre')->get(['id','nombre']);
         
         return view('altaempleado')
                 ->with('consultaRoles',$consultaRoles)
@@ -45,7 +45,27 @@ class EmpleadosController extends Controller
             'pass'            => 'required'
         ]);
 
-        echo "Todo Correcto";
+        // Creacion del empleado
+        $empleados = new empleados;
+        $empleados->nombre           = $request->nombre;
+        $empleados->ap_pat           = $request->ap_pat;
+        $empleados->ap_mat           = $request->ap_mat;
+        $empleados->direccion        = $request->direccion;
+        $empleados->numero_telefono  = $request->numero_telefono;
+        $empleados->id_tipo_empleado = $request->tipo_empleado;
+        $empleados->genero           = $request->genero;
+        $empleados->email            = $request->email;
+        $empleados->password         = $request->pass;
+
+
+        $empleados->save();
+
+        $proceso = "Alta Empleado";
+        $mensaje = "Empleado ($request->nombre $request->ap_pat $request->ap_mat) guardado Correctamente";
+
+        return view('guardarempleado')
+                ->with('proceso',$proceso)
+                ->with('mensaje',$mensaje);
     }
 
     
