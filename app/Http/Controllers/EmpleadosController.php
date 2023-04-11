@@ -87,21 +87,42 @@ class EmpleadosController extends Controller
     }
 
     public function modificar_empleado($id_empleado){
-        $consultaRoles = roles::orderBy('nombre')->get(['id','nombre']);
+        $consultaRoles = roles::orderBy('nombre')
+                                ->get(['id','nombre']);
 
-        $consultaEmpleado = empleados::where('id',$id_empleado)->get();
+        $consultaEmpleado = empleados::withTrashed()->join('roles','empleados.id_tipo_empleado', '=', 'roles.id')
+                                        ->select('empleados.id',
+                                                'empleados.nombre',
+                                                'empleados.ap_pat',
+                                                'empleados.ap_mat',
+                                                'empleados.direccion',
+                                                'empleados.numero_telefono',
+                                                'empleados.id_tipo_empleado',
+                                                'roles.nombre as role',
+                                                'empleados.email',
+                                                'empleados.password')
+                                        ->where('empleados.id', $id_empleado)
+                                        ->get();
 
         $dataEmpleado = $consultaEmpleado[0];
-
-        // return $dataEmpleado->id;
 
         return  view('modificarempleado')
                 ->with('consultaRoles', $consultaRoles)
                 ->with('dataEmpleado', $dataEmpleado);
     }
 
-    public function actualizar_empleado(){
-        
+    public function actualizar_empleado(Request $request){
+        $this->validate($request,[
+            'nombre'          => 'required|regex:/^[A-Z][A-Z,a-z, ]+$/',
+            'ap_pat'          => 'required|alpha',
+            'ap_mat'          => 'required|alpha',
+            'direccion'       => 'required',
+            'numero_telefono' => 'required|numeric|regex:/^[0-9]{10}$/',
+            'tipo_empleado'   => 'required|numeric',
+            'genero'          => 'required',
+            'email'           => 'required|email',
+            'pass'            => 'required'
+        ]);
     }
 
     public function desactivar_empleado($id_empleado){
