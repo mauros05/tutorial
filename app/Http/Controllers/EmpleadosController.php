@@ -119,7 +119,8 @@ class EmpleadosController extends Controller
                                                 'empleados.genero',
                                                 'roles.nombre as role',
                                                 'empleados.email',
-                                                'empleados.password')
+                                                'empleados.password',
+                                                'empleados.imagen')
                                         ->where('empleados.id', $id_empleado)
                                         ->get();
 
@@ -141,8 +142,19 @@ class EmpleadosController extends Controller
             'tipo_empleado'   => 'required|numeric',
             'genero'          => 'required',
             'email'           => 'required|email',
-            'pass'            => 'required'
+            'pass'            => 'required',
+            'foto_perfil'     => 'image|mimes:gif,jpeg,png'
         ]);
+
+        $archivo = $request->file('foto_perfil');
+        
+        if($archivo){
+            // Generate a unique filename for the uploaded file
+            $filename = uniqid() . '.' .$archivo->getClientOriginalExtension();
+        
+            // Store the uploaded file in the public/archivos directory
+            $archivo->move(public_path('archivos'), $filename);
+        }
 
         $empleados = empleados::withTrashed()->find($request->id_empleado);
         $empleados->nombre           = $request->nombre;
@@ -154,6 +166,9 @@ class EmpleadosController extends Controller
         $empleados->genero           = $request->genero;
         $empleados->email            = $request->email;
         $empleados->password         = $request->pass;
+        if($archivo){
+            $empleados->imagen           = $filename;
+        }
 
         $empleados->save();
 

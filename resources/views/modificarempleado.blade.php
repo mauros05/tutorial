@@ -5,7 +5,7 @@
 
     <h3 id="accion_titulo_alta">Modificar Empleado</h3>
     
-    <form action="{{route('actualizar_empleado')}}" method="POST">
+    <form action="{{route('actualizar_empleado')}}" method="POST" enctype="multipart/form-data">
       @csrf {{-- Tenemos que agregar un Token para que el Formulario Funcione --}}
       <div class="row mb-4">
         <div class="col">
@@ -89,23 +89,35 @@
         </div>
       </div>
 
-      <div class="row mb-4">
-        <div class="col">
-          <label for="email" class="form-label">Correo</label>
-          <input type="email" class="form-control" name="email" value="{{$dataEmpleado->email}}" id="email" aria-describedby="emailHelp">
-          @if ($errors->first('email'))
-            <p class="text-danger">{{$errors->first('email')}}</p>
-          @endif
+        <div class="row mb-4">
+            <div class="col">
+            <label for="email" class="form-label">Correo</label>
+            <input type="email" class="form-control" name="email" value="{{$dataEmpleado->email}}" id="email" aria-describedby="emailHelp">
+            @if ($errors->first('email'))
+                <p class="text-danger">{{$errors->first('email')}}</p>
+            @endif
+            </div>
+    
+            <div class="col">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control"  name="pass" value="{{$dataEmpleado->password}}" id="password">
+            @if ($errors->first('pass'))
+                <p class="text-danger">{{$errors->first('pass')}}</p>
+            @endif
+            </div>
+
+            <div class="col">
+                <label for="foto de perfil" class="form-label">Foto de Perfil</label>
+                <input type="file" class="form-control" name="foto_perfil" id="foto_perfil">
+                @if ($errors->first('foto_perfil'))
+                <p class="text-danger">{{$errors->first('foto_perfil')}}</p>
+                @endif
+            </div>
+            <div class="col">
+                <label for="imagen_actual" class="form-label">Imagen Actual</label><br>
+                <img src="{{$dataEmpleado->imagen == '' ? asset('public/archivos/1__ARzR7F_fff_KI14yMKBzw.png') : asset('public/archivos/'.$dataEmpleado->imagen)}}" alt="foto_perfil" height="60" width="60" style="border-radius: 64px">
+            </div>
         </div>
-  
-        <div class="col">
-          <label for="password" class="form-label">Contraseña</label>
-          <input type="password" class="form-control"  name="pass" value="{{$dataEmpleado->password}}" id="password">
-          @if ($errors->first('pass'))
-            <p class="text-danger">{{$errors->first('pass')}}</p>
-          @endif
-        </div>
-      </div>
 
       <button type="submit" class="btn btn-success">Modificar Empleado</button>
     </form>
