@@ -21,7 +21,8 @@ class EmpleadosController extends Controller
                                      'empleados.ap_mat',
                                      'roles.nombre as role',
                                      'empleados.email',
-                                     'empleados.deleted_at')
+                                     'empleados.deleted_at',
+                                     'empleados.imagen')
                             ->orderBy('empleados.nombre')
                             ->get();
 

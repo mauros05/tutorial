@@ -16,6 +16,7 @@
         <table class="table table-dark">
             <thead>
               <tr>
+                <th scope="col">Foto</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Rol</th>
                 <th scope="col">Correo</th>
@@ -25,6 +26,7 @@
             <tbody>
                 @foreach ($consulta as $data)
                     <tr class="table-light">
+                        <td><img src="{{$data->imagen == '' ? asset('public/archivos/1__ARzR7F_fff_KI14yMKBzw.png') : asset('public/archivos/'.$data->imagen)}}" alt="foto_perfil" height="50" width="50"></td>
                         <td>{{$data->nombre}} {{$data->ap_pat}} {{$data->ap_mat}}</td>
                         <td>{{$data->role}}</td>
                         <td>{{$data->email}}</td>
