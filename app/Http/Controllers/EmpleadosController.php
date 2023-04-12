@@ -147,7 +147,7 @@ class EmpleadosController extends Controller
         ]);
 
         $archivo = $request->file('foto_perfil');
-        
+
         if($archivo){
             // Generate a unique filename for the uploaded file
             $filename = uniqid() . '.' .$archivo->getClientOriginalExtension();
@@ -239,7 +239,7 @@ class EmpleadosController extends Controller
             return redirect()->route('listar_empleados')->with('warning', "No ha sido posible Borrar el empleado ya que cuenta con registros de Nomina");
         }
     }
-    
+
     public function eloquent(){
         // CONSULTAR TODOS LOS DATOS DE LA TABLA
         // $consulta = empleados::all();
