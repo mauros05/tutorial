@@ -5,7 +5,8 @@
 
     <h3 id="accion_titulo_alta">Alta Empleado</h3>
     
-    <form action="{{route('guardar_empleado')}}" method="POST">
+    {{-- El enctype="multipart/form-data" es para la transferencia de archivos --}}
+    <form action="{{route('guardar_empleado')}}" method="POST"  enctype="multipart/form-data">
       @csrf {{-- Tenemos que agregar un Token para que el Formulario Funcione --}}
       <div class="row mb-4">
         <div class="col">
@@ -103,6 +104,15 @@
             <p class="text-danger">{{$errors->first('pass')}}</p>
           @endif
         </div>
+
+        <div class="col">
+          <label for="email" class="form-label">Foto de Perfil</label>
+          <input type="file" class="form-control" name="foto_perfil" id="foto_perfil">
+          @if ($errors->first('foto_perfil'))
+            <p class="text-danger">{{$errors->first('foto_perfil')}}</p>
+          @endif
+        </div>
+        
       </div>
 
       <button type="submit" class="btn btn-success">Generar Alta</button>

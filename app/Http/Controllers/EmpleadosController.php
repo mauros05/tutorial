@@ -59,8 +59,22 @@ class EmpleadosController extends Controller
             'tipo_empleado'   => 'required|numeric',
             'genero'          => 'required',
             'email'           => 'required|email',
-            'pass'            => 'required'
+            'pass'            => 'required',
+            'foto_perfil'     => 'image|mimes:gif,jpeg,png'
         ]);
+
+        // Recibir el archivo subido
+        $archivo = $request->file('foto_perfil');
+        $filename  = null;
+
+        if($archivo){
+            // Generate a unique filename for the uploaded file
+            $filename = uniqid() . '.' .$archivo->getClientOriginalExtension();
+        
+            // Store the uploaded file in the public/archivos directory
+            $archivo->move(public_path('archivos'), $filename);
+        }
+
 
         // Creacion del empleado
         $empleados = new empleados;
@@ -73,6 +87,7 @@ class EmpleadosController extends Controller
         $empleados->genero           = $request->genero;
         $empleados->email            = $request->email;
         $empleados->password         = $request->pass;
+        $empleados->imagen           = $filename;
 
 
         $empleados->save();
@@ -84,6 +99,7 @@ class EmpleadosController extends Controller
         //         ->with('proceso',$proceso)
         //         ->with('mensaje',$mensaje)
         //         ->with('error', 0);
+        
         return redirect()->route('listar_empleados')->with('success', "Empleado ($request->nombre $request->ap_pat $request->ap_mat) guardado Correctamente");
     }
 

@@ -21,6 +21,7 @@ class empleados extends Model
                            'genero', 'email', 
                            'password',
                            'edad',
-                           'salario'
+                           'salario',
+                           'imagen'
                         ];
 }
