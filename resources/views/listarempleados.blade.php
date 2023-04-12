@@ -3,6 +3,16 @@
 @section('contenido')
     <div class="container my-4">
         <h3 id="accion_titulo_alta">Listar Empleados</h3>
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('warning'))
+            <div class="alert alert-warning">
+                {{ session('warning') }}
+            </div>
+        @endif
         <table class="table table-dark">
             <thead>
               <tr>
@@ -40,4 +50,5 @@
             </tbody>
           </table>
     </div>
+    
 @stop

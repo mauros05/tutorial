@@ -77,13 +77,14 @@ class EmpleadosController extends Controller
 
         $empleados->save();
 
-        $proceso = "Alta Empleado";
-        $mensaje = "Empleado ($request->nombre $request->ap_pat $request->ap_mat) guardado Correctamente";
+        // $proceso = "Alta Empleado";
+        // $mensaje = "Empleado ($request->nombre $request->ap_pat $request->ap_mat) guardado Correctamente";
 
-        return view('vistaempleado')
-                ->with('proceso',$proceso)
-                ->with('mensaje',$mensaje)
-                ->with('error', 0);
+        // return view('vistaempleado')
+        //         ->with('proceso',$proceso)
+        //         ->with('mensaje',$mensaje)
+        //         ->with('error', 0);
+        return redirect()->route('listar_empleados')->with('success', "Empleado ($request->nombre $request->ap_pat $request->ap_mat) guardado Correctamente");
     }
 
     public function modificar_empleado($id_empleado){
@@ -126,7 +127,7 @@ class EmpleadosController extends Controller
             'pass'            => 'required'
         ]);
 
-        $empleados = empleados::find($request->id_empleado);
+        $empleados = empleados::withTrashed()->find($request->id_empleado);
         $empleados->nombre           = $request->nombre;
         $empleados->ap_pat           = $request->ap_pat;
         $empleados->ap_mat           = $request->ap_mat;
@@ -139,26 +140,28 @@ class EmpleadosController extends Controller
 
         $empleados->save();
 
-        $proceso = "Modificar Empleado";
-        $mensaje = "Empleado Modificado Correctamente";
+        // $proceso = "Modificar Empleado";
+        // $mensaje = "Empleado Modificado Correctamente";
 
-        return view('vistaempleado')
-                ->with('proceso',$proceso)
-                ->with('mensaje',$mensaje)
-                ->with('error', 0);
+        // return view('vistaempleado')
+        //         ->with('proceso',$proceso)
+        //         ->with('mensaje',$mensaje)
+        //         ->with('error', 0);
+        return redirect()->route('listar_empleados')->with('success', "Empleado ($request->nombre $request->ap_pat $request->ap_mat) Modificado Correctamente");
     }
 
     public function desactivar_empleado($id_empleado){
         $empleados = empleados::find($id_empleado);
         $empleados->delete();
 
-        $proceso = "Desactivar Empleado";
-        $mensaje = "Empleado Desactivado Correctamente";
+        // $proceso = "Desactivar Empleado";
+        // $mensaje = "Empleado Desactivado Correctamente";
 
-        return view('vistaempleado')
-                ->with('proceso',$proceso)
-                ->with('mensaje',$mensaje)
-                ->with('error', 0);
+        // return view('vistaempleado')
+        //         ->with('proceso',$proceso)
+        //         ->with('mensaje',$mensaje)
+        //         ->with('error', 0);
+        return redirect()->route('listar_empleados')->with('warning', "Empleado Desactivado Correctamente");
     }
 
     public function activar_empleado($id_empleado){
@@ -166,13 +169,14 @@ class EmpleadosController extends Controller
                     ->where('id',$id_empleado)
                     ->restore();
 
-        $proceso = "Activar Empleado";
-        $mensaje = "Empleado Activado Correctamente";
+        // $proceso = "Activar Empleado";
+        // $mensaje = "Empleado Activado Correctamente";
 
-        return view('vistaempleado')
-                ->with('proceso',$proceso)
-                ->with('mensaje',$mensaje)
-                ->with('error', 0);        
+        // return view('vistaempleado')
+        //         ->with('proceso',$proceso)
+        //         ->with('mensaje',$mensaje)
+        //         ->with('error', 0);        
+        return redirect()->route('listar_empleados')->with('success', "Empleado Activado Correctamente");
     }
 
     public function borrar_empleado($id_empleado){
@@ -184,21 +188,23 @@ class EmpleadosController extends Controller
                     ->find($id_empleado)
                     ->forceDelete();
 
-            $proceso = "Borrar Empleado";
-            $mensaje = "Empleado Borrado Correctamente";
+            // $proceso = "Borrar Empleado";
+            // $mensaje = "Empleado Borrado Correctamente";
 
-            return view('vistaempleado')
-                    ->with('proceso',$proceso)
-                    ->with('mensaje',$mensaje)
-                    ->with('error', 0);  
+            // return view('vistaempleado')
+            //         ->with('proceso',$proceso)
+            //         ->with('mensaje',$mensaje)
+            //         ->with('error', 0);
+            return redirect()->route('listar_empleados')->with('success', "Empleado Borrado Correctamente");
         } else {
-            $proceso = "Borrar Empleado";
-            $mensaje = "No ha sido posible Borrar el empleado";
+            // $proceso = "Borrar Empleado";
+            // $mensaje = "No ha sido posible Borrar el empleado";
 
-            return view('vistaempleado')
-                    ->with('proceso',$proceso)
-                    ->with('mensaje',$mensaje)
-                    ->with('error', 1);  
+            // return view('vistaempleado')
+            //         ->with('proceso',$proceso)
+            //         ->with('mensaje',$mensaje)
+            //         ->with('error', 1);
+            return redirect()->route('listar_empleados')->with('warning', "No ha sido posible Borrar el empleado ya que cuenta con registros de Nomina");
         }
     }
     
