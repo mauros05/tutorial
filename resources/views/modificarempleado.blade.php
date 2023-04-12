@@ -10,7 +10,7 @@
       <div class="row mb-4">
         <div class="col">
           <label for="nombre" class="form-label">Numero de Empleado</label>
-          <input type="text" class="form-control" value="{{$dataEmpleado->id}}" id="" readonly>
+          <input type="text" class="form-control" value="{{$dataEmpleado->id}}" name="id_empleado" readonly>
         </div>
 
         <div class="col">
@@ -75,13 +75,13 @@
         <div class="col">
           <label for="genero" class="form-label">Genero</label>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="genero" value="M" id="genero" checked>
+            <input class="form-check-input" type="radio" name="genero" value="M" id="genero" {{ $dataEmpleado->genero == 'M' ? 'checked' : ''}}>
             <label class="form-check-label" for="genero">
               Masculino
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="genero" value="F" id="genero">
+            <input class="form-check-input" type="radio" name="genero" value="F" id="genero" {{ $dataEmpleado->genero == 'M' ? '' : 'checked'}}>
             <label class="form-check-label" for="genero">
               Femenino
             </label>

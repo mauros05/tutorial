@@ -98,6 +98,7 @@ class EmpleadosController extends Controller
                                                 'empleados.direccion',
                                                 'empleados.numero_telefono',
                                                 'empleados.id_tipo_empleado',
+                                                'empleados.genero',
                                                 'roles.nombre as role',
                                                 'empleados.email',
                                                 'empleados.password')
@@ -113,6 +114,7 @@ class EmpleadosController extends Controller
 
     public function actualizar_empleado(Request $request){
         $this->validate($request,[
+            'id_empleado'     => 'required|numeric',
             'nombre'          => 'required|regex:/^[A-Z][A-Z,a-z, ]+$/',
             'ap_pat'          => 'required|alpha',
             'ap_mat'          => 'required|alpha',
@@ -123,6 +125,27 @@ class EmpleadosController extends Controller
             'email'           => 'required|email',
             'pass'            => 'required'
         ]);
+
+        $empleados = empleados::find($request->id_empleado);
+        $empleados->nombre           = $request->nombre;
+        $empleados->ap_pat           = $request->ap_pat;
+        $empleados->ap_mat           = $request->ap_mat;
+        $empleados->direccion        = $request->direccion;
+        $empleados->numero_telefono  = $request->numero_telefono;
+        $empleados->id_tipo_empleado = $request->tipo_empleado;
+        $empleados->genero           = $request->genero;
+        $empleados->email            = $request->email;
+        $empleados->password         = $request->pass;
+
+        $empleados->save();
+
+        $proceso = "Modificar Empleado";
+        $mensaje = "Empleado Modificado Correctamente";
+
+        return view('vistaempleado')
+                ->with('proceso',$proceso)
+                ->with('mensaje',$mensaje)
+                ->with('error', 0);
     }
 
     public function desactivar_empleado($id_empleado){
