@@ -30,7 +30,7 @@ class EmpleadosController extends Controller
     }
 
     public function alta_empleado(){
-        $idEmpleado = empleados::orderBy('id', 'DESC')
+        $idEmpleado = empleados::withTrashed()->orderBy('id', 'DESC')
                                 ->take(1)->get();
         $id = $idEmpleado[0]->id;
 
