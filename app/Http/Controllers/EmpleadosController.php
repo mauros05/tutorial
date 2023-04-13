@@ -14,7 +14,10 @@ class EmpleadosController extends Controller
     }
 
     public function listar_empleados(){
-        $consulta = empleados::withTrashed()->join('roles','empleados.id_tipo_empleado', '=', 'roles.id')
+        if(session('sessionIdUsuario')<> "" && session('sessionTipoUsuario') <> ""){
+            $sessionTipoUsuario = session('sessionTipoUsuario');
+
+            $consulta = empleados::withTrashed()->join('roles','empleados.id_tipo_empleado', '=', 'roles.id')
                             ->select('empleados.id',
                                      'empleados.nombre',
                                      'empleados.ap_pat',
@@ -26,26 +29,35 @@ class EmpleadosController extends Controller
                             ->orderBy('empleados.nombre')
                             ->get();
 
-        return view('listarempleados')
-                ->with('consulta', $consulta);
+            return view('listarempleados')
+                    ->with('consulta', $consulta)
+                    ->with('tipoUsuario', $sessionTipoUsuario);
+        } else {
+            return redirect()->route('login')->with('warning', "Requiere iniciar Sesion");
+        }
+        
     }
 
     public function alta_empleado(){
-        $idEmpleado = empleados::withTrashed()->orderBy('id', 'DESC')
+        if(session('sessionIdUsuario')<>""){
+            $idEmpleado = empleados::withTrashed()->orderBy('id', 'DESC')
                                 ->take(1)->get();
-        $id = $idEmpleado[0]->id;
+            $id = $idEmpleado[0]->id;
 
-        if($id == 0){
-            $nuevoId = 1;
+            if($id == 0){
+                $nuevoId = 1;
+            } else {
+                $nuevoId = $id + 1;
+            }
+            
+            $consultaRoles = roles::orderBy('nombre')->get(['id','nombre']);
+            
+            return view('altaempleado')
+                    ->with('consultaRoles',$consultaRoles)
+                    ->with('nuevoId', $nuevoId);
         } else {
-            $nuevoId = $id + 1;
-        }
-        
-        $consultaRoles = roles::orderBy('nombre')->get(['id','nombre']);
-        
-        return view('altaempleado')
-                ->with('consultaRoles',$consultaRoles)
-                ->with('nuevoId', $nuevoId);
+            return redirect()->route('login')->with('warning', "Requiere iniciar Sesion");
+        }  
     }
 
     public function guardar_empleado(Request $request){

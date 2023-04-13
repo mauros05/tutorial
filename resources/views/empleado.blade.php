@@ -29,7 +29,7 @@
     <div>
         {{-- Para usar la funcion route debemos de renombrar la ruta en el archivo web.php --}}
         <a href="{{route('salir')}}">Cerrar Nomina</a>
-        <a href="{{route('bootstrapview')}}">Ir a Bootstrap</a>
+        {{-- <a href="{{route('bootstrapview')}}">Ir a Bootstrap</a> --}}
     </div>
 </body>
 </html>

@@ -1,3 +1,9 @@
+<?php 
+    $sessionUsuario     = session('sesionUsuario');
+    $sessionTipoUsuario = session('sessionTipoUsuario');
+    $sessionIdUsuario   = session('sessionIdUsuario');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,12 +16,22 @@
     <title>Sistema de Control de Nomina</title>
 </head>
 <body>
-    <x-navbar></x-navbar>
-    <div id="title">
-        <h1>Sistema de Control de Nomina</h1>
-    </div>
+    <?php if($sessionUsuario <> ""){?>
+        <x-navbar></x-navbar>
+        <div id="title" class="mt-5">
+            <h1>Sistema de Control de Nomina</h1>
+        </div>
+    <?php }?>
+    
     <div>
         @yield('contenido')
     </div>
+    @if (session('successLogin'))
+        <div class="container">
+            <div class="alert alert-success">
+                Bienvenido <?= $sessionUsuario ?>
+            </div>
+        </div>
+    @endif
 </body>
 </html>

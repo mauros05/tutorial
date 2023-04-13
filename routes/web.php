@@ -23,11 +23,19 @@ use App\Http\Controllers\LoginController;
 Route::get('mensaje', [EmpleadosController::class,'mensaje']);
 Route::get('pago', [EmpleadosController::class,'pago']);
 Route::get('nombre/{nombre}/{apellido}', [EmpleadosController::class,'nombre']);
-
 // RUTAS DE CONTROLLER EMPLEADO
 Route::get('inicio/{nombre}/{dias_trabajados}',[EmpleadosController::class,'saludo']);
 Route::get('salir_nomina',[EmpleadosController::class, 'salir'])->name('salir');
-Route::get('/',[EmpleadosController::class, 'bootstrap'])->name('bootstrapview');
+// Route::get('/',[EmpleadosController::class, 'bootstrap'])->name('bootstrapview');
+
+// ELOQUENT
+Route::get('eloquent', [EmpleadosController::class,'eloquent'])->name('eloquent');
+
+
+// LOGIN
+Route::get('/',[LoginController::class, 'login'])->name('login');
+Route::post('login_access',[LoginController::class, 'login_access'])->name('login_access');
+Route::get('principal', [LoginController::class, 'principal'])->name('principal');
 
 // CREAR EMPLEADOS
 Route::get('alta_empleado',[EmpleadosController::class, 'alta_empleado'])->name('alta_empleado');
@@ -44,20 +52,3 @@ Route::get('borrar_empleado/{id_empleado}', [EmpleadosController::class, 'borrar
 // MODIFICAR EMPLEADO
 Route::get('modificar_empleado/{id_empleado}',[EmpleadosController::class, 'modificar_empleado'])->name('modificar_empleado');
 Route::post('actualizar_empleado',[EmpleadosController::class, 'actualizar_empleado'])->name('actualizar_empleado');
-
-// ELOQUENT
-Route::get('eloquent', [EmpleadosController::class,'eloquent'])->name('eloquent');
-
-Route::get('login',[LoginController::class, 'login'])->name('login');
-Route::post('login_access',[LoginController::class, 'login_access'])->name('login_access');
-Route::get('principal', [LoginController::class, 'principal'])->name('principal');
-
-// Route::get('/ruta1',function(){
-//     return "hola mundo";
-// });
-
-// Route::get('/redireccionamiento', function(){
-//     return redirect ('/');
-// });
-
-// Route::redirect('redireccionamiento2', 'ruta1');

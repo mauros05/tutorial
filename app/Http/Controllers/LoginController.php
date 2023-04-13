@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\usuarios;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
@@ -27,13 +29,22 @@ class LoginController extends Controller
                             $validacion = count($busqueda);
 
         if($validacion == 1 && Hash::check($request->pass, $busqueda[0]->password)){
-            return redirect()->route('principal')->with('success', "Acceso permitido");
+            // Crear una Sesion
+            Session::put('sesionUsuario',$busqueda[0]->nombre . ' '. $busqueda[0]->ap_pat. ' '. $busqueda[0]->ap_mat);
+            Session::put('sessionTipoUsuario',$busqueda[0]->tipo);
+            Session::put('sessionIdUsuario',$busqueda[0]->id);
+
+            return redirect()->route('principal')->with('successLogin', "Acceso permitido");
         } else {
-            return redirect()->route('login')->with('warning', "Usuario o Password incorrectos");
+            return redirect()->route('login')->with('warning', "Usuario o Contraseña incorrectos");
         }
     }
 
     public function principal(){
-        return view('vistabootstrap');
+        if(session('sessionIdUsuario')<>""){
+            return view('vistabootstrap');
+        } else {
+            return redirect()->route('login')->with('warning', "Requiere iniciar Sesion");
+        }
     }
 }

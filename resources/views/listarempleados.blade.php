@@ -20,7 +20,9 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Rol</th>
                 <th scope="col">Correo</th>
-                <th scope="col">Acciones</th>
+                @if ($tipoUsuario == 'admin')
+                    <th scope="col">Acciones</th>
+                @endif
               </tr>
             </thead>
             <tbody>
@@ -30,23 +32,25 @@
                         <td>{{$data->nombre}} {{$data->ap_pat}} {{$data->ap_mat}}</td>
                         <td>{{$data->role}}</td>
                         <td>{{$data->email}}</td>
-                        <td>
-                            <a href="{{route('modificar_empleado',['id_empleado'=>$data->id])}}">
-                                <button class="btn btn-primary">Modificar</button>
-                            </a>
-                            @if ($data->deleted_at == NULL)
-                                <a href="{{route('desactivar_empleado',['id_empleado'=>$data->id])}}">
-                                    <button class="btn btn-warning">Desactivar</button>
+                        @if ($tipoUsuario == 'admin')
+                            <td>
+                                <a href="{{route('modificar_empleado',['id_empleado'=>$data->id])}}">
+                                    <button class="btn btn-primary">Modificar</button>
                                 </a>
-                            @else
-                                <a href="{{route('activar_empleado',['id_empleado'=>$data->id])}}">
-                                    <button class="btn btn-success">Activar</button>
-                                </a>
-                                <a href="{{route('borrar_empleado',['id_empleado'=>$data->id])}}">
-                                    <button class="btn btn-danger">Borrar</button>
-                                </a>
-                            @endif
-                        </td>
+                                @if ($data->deleted_at == NULL)
+                                    <a href="{{route('desactivar_empleado',['id_empleado'=>$data->id])}}">
+                                        <button class="btn btn-warning">Desactivar</button>
+                                    </a>
+                                @else
+                                    <a href="{{route('activar_empleado',['id_empleado'=>$data->id])}}">
+                                        <button class="btn btn-success">Activar</button>
+                                    </a>
+                                    <a href="{{route('borrar_empleado',['id_empleado'=>$data->id])}}">
+                                        <button class="btn btn-danger">Borrar</button>
+                                    </a>
+                                @endif
+                            </td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>

@@ -2,6 +2,7 @@
 
 @section('contenido')
     <div class="container">
+        <h1 class="text-center mb-5 mt-5">Sistema de Control de Nomina</h1>
         @if (session('warning'))
             <div class="alert alert-warning">
                 {{ session('warning') }}
