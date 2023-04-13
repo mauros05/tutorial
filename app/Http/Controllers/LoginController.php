@@ -47,4 +47,13 @@ class LoginController extends Controller
             return redirect()->route('login')->with('warning', "Requiere iniciar Sesion");
         }
     }
+
+    public function cerrar_sesion(){
+        Session::forget('sesionUsuario');
+        Session::forget('sessionTipoUsuario');
+        Session::forget('sessionIdUsuario');
+        Session::flush();
+
+        return redirect()->route('login')->with('warning', "Sesion Cerrada Correctamente");
+    }
 }

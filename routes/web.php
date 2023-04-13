@@ -36,6 +36,7 @@ Route::get('eloquent', [EmpleadosController::class,'eloquent'])->name('eloquent'
 Route::get('/',[LoginController::class, 'login'])->name('login');
 Route::post('login_access',[LoginController::class, 'login_access'])->name('login_access');
 Route::get('principal', [LoginController::class, 'principal'])->name('principal');
+Route::get('cerrar_sesion',  [LoginController::class, 'cerrar_sesion'])->name('cerrar_sesion');
 
 // CREAR EMPLEADOS
 Route::get('alta_empleado',[EmpleadosController::class, 'alta_empleado'])->name('alta_empleado');
