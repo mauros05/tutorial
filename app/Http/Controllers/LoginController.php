@@ -27,11 +27,13 @@ class LoginController extends Controller
                             $validacion = count($busqueda);
 
         if($validacion == 1 && Hash::check($request->pass, $busqueda[0]->password)){
-            echo "acceso concedido";
+            return redirect()->route('principal')->with('success', "Acceso permitido");
         } else {
-            // echo "acceso denegado";
             return redirect()->route('login')->with('warning', "Usuario o Password incorrectos");
         }
-        // return $passwordEncriptada;
+    }
+
+    public function principal(){
+        return view('vistabootstrap');
     }
 }

@@ -50,6 +50,7 @@ Route::get('eloquent', [EmpleadosController::class,'eloquent'])->name('eloquent'
 
 Route::get('login',[LoginController::class, 'login'])->name('login');
 Route::post('login_access',[LoginController::class, 'login_access'])->name('login_access');
+Route::get('principal', [LoginController::class, 'principal'])->name('principal');
 
 // Route::get('/ruta1',function(){
 //     return "hola mundo";
