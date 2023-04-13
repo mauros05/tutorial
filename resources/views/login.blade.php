@@ -2,6 +2,11 @@
 
 @section('contenido')
     <div class="container">
+        @if (session('warning'))
+            <div class="alert alert-warning">
+                {{ session('warning') }}
+            </div>
+        @endif
         <div class="row">
             <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
                 <div class="card border-0 shadow rounded-3 my-5">
@@ -9,11 +14,7 @@
                     <h3 id="accion_titulo_alta" class="text-center mb-5">Sign In</h3>
                     <form action="{{route('login_access')}}" method="POST">
                         @csrf
-                        @if (session('warning'))
-                            <div class="alert alert-warning">
-                                {{ session('warning') }}
-                            </div>
-                        @endif
+                        
 
                         <div class="mb-3">
                             <label for="floatingInput">Correo</label>

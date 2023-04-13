@@ -48,7 +48,7 @@ Route::post('actualizar_empleado',[EmpleadosController::class, 'actualizar_emple
 // ELOQUENT
 Route::get('eloquent', [EmpleadosController::class,'eloquent'])->name('eloquent');
 
-Route::get('login',[LoginController::class, 'login']);
+Route::get('login',[LoginController::class, 'login'])->name('login');
 Route::post('login_access',[LoginController::class, 'login_access'])->name('login_access');
 
 // Route::get('/ruta1',function(){
