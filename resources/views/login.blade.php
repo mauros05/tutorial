@@ -5,7 +5,13 @@
         <h1 class="text-center mb-5 mt-5">Sistema de Control de Nomina</h1>
         <div class="row">
             <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-                <div id="div-message"></div>
+                <div id="div-message">
+                    @if (session('warning'))
+                        <div class="alert alert-warning">
+                            {{ session('warning') }}
+                        </div>
+                    @endif
+                </div>
                 <div class="card border-0 shadow rounded-3 my-5 mt-4">
                     <div class="card-body p-4 p-sm-5">
                         <h3 id="accion_titulo_alta" class="text-center mb-5">Sign In</h3>

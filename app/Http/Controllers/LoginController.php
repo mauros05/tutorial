@@ -14,14 +14,7 @@ class LoginController extends Controller
     }
 
     public function login_access(Request $request){
-        // $errors = $this->validate($request,[
-        //     'email' => 'required|email',
-        //     'pass'  =>  'required'
-        // ]);
-
-        // return $errors;
-        // // $passwordEncriptada = Hash::make($request->pass);
-
+        
         $busqueda = usuarios::where('email', $request->email)
                             ->where('activo', 1)
                             ->get();
