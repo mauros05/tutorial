@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\usuarios;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
@@ -15,12 +14,13 @@ class LoginController extends Controller
     }
 
     public function login_access(Request $request){
-        $this->validate($request,[
-            'email' => 'required|email',
-            'pass'  =>  'required'
-        ]);
+        // $errors = $this->validate($request,[
+        //     'email' => 'required|email',
+        //     'pass'  =>  'required'
+        // ]);
 
-        // $passwordEncriptada = Hash::make($request->pass);
+        // return $errors;
+        // // $passwordEncriptada = Hash::make($request->pass);
 
         $busqueda = usuarios::where('email', $request->email)
                             ->where('activo', 1)
@@ -28,16 +28,28 @@ class LoginController extends Controller
         
                             $validacion = count($busqueda);
 
+        $resValidation = NULL;
+        
         if($validacion == 1 && Hash::check($request->pass, $busqueda[0]->password)){
             // Crear una Sesion
             Session::put('sesionUsuario',$busqueda[0]->nombre . ' '. $busqueda[0]->ap_pat. ' '. $busqueda[0]->ap_mat);
             Session::put('sessionTipoUsuario',$busqueda[0]->tipo);
             Session::put('sessionIdUsuario',$busqueda[0]->id);
 
-            return redirect()->route('principal')->with('successLogin', "Acceso permitido");
+            $resValidation["flag"] = 1; 
+            
+            echo json_encode($resValidation);
+            
         } else {
-            return redirect()->route('login')->with('warning', "Usuario o Contraseña incorrectos");
+            
+            $resValidation["msg_error"] = "Usuario o Contraseña incorrectos";
+            $resValidation["flag"] = 0; 
+            echo json_encode($resValidation);
         }
+    }
+
+    public function redirect(){
+        return redirect()->route('principal')->with('successLogin', "Acceso permitido");
     }
 
     public function principal(){
@@ -55,5 +67,5 @@ class LoginController extends Controller
         Session::flush();
 
         return redirect()->route('login')->with('warning', "Sesion Cerrada Correctamente");
-    }
+    }    
 }

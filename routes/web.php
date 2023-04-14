@@ -23,20 +23,18 @@ use App\Http\Controllers\LoginController;
 Route::get('mensaje', [EmpleadosController::class,'mensaje']);
 Route::get('pago', [EmpleadosController::class,'pago']);
 Route::get('nombre/{nombre}/{apellido}', [EmpleadosController::class,'nombre']);
-// RUTAS DE CONTROLLER EMPLEADO
 Route::get('inicio/{nombre}/{dias_trabajados}',[EmpleadosController::class,'saludo']);
 Route::get('salir_nomina',[EmpleadosController::class, 'salir'])->name('salir');
-// Route::get('/',[EmpleadosController::class, 'bootstrap'])->name('bootstrapview');
 
 // ELOQUENT
-Route::get('eloquent', [EmpleadosController::class,'eloquent'])->name('eloquent');
-
+// Route::get('eloquent', [EmpleadosController::class,'eloquent'])->name('eloquent');
 
 // LOGIN
 Route::get('/',[LoginController::class, 'login'])->name('login');
 Route::post('login_access',[LoginController::class, 'login_access'])->name('login_access');
 Route::get('principal', [LoginController::class, 'principal'])->name('principal');
 Route::get('cerrar_sesion',  [LoginController::class, 'cerrar_sesion'])->name('cerrar_sesion');
+Route::get('redirect',  [LoginController::class, 'redirect'])->name('redirect');
 
 // CREAR EMPLEADOS
 Route::get('alta_empleado',[EmpleadosController::class, 'alta_empleado'])->name('alta_empleado');
