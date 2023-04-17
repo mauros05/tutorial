@@ -43,6 +43,7 @@
             }
         });
     </script>
+    <script src="{{asset('resources/js/funciones.js')}}"></script>
     <script src="{{asset('resources/js/general.js')}}"></script>
 </body>
 </html>

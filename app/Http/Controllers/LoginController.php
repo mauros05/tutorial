@@ -14,7 +14,7 @@ class LoginController extends Controller
     }
 
     public function login_access(Request $request){
-        
+
         $busqueda = usuarios::where('email', $request->email)
                             ->where('activo', 1)
                             ->get();
@@ -42,7 +42,11 @@ class LoginController extends Controller
     }
 
     public function redirect(){
-        return redirect()->route('principal')->with('successLogin', "Acceso permitido");
+        if(session('sessionIdUsuario')<>""){
+            return redirect()->route('principal')->with('successLogin', "Acceso permitido");
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     public function principal(){
@@ -59,6 +63,8 @@ class LoginController extends Controller
         Session::forget('sessionIdUsuario');
         Session::flush();
 
-        return redirect()->route('login')->with('warning', "Sesion Cerrada Correctamente");
+        $resValidation["flag"] = 1; 
+        echo json_encode($resValidation);
+        // return redirect()->route('login')->with('warning', "Sesion Cerrada Correctamente");
     }    
 }

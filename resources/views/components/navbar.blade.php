@@ -17,9 +17,9 @@
                 <a class="nav-link" href="{{route('listar_empleados')}}">Listar Empleados</a>
               </li>
             </ul>
-            <a href="{{route('cerrar_sesion')}}">
-              <button class="btn btn-outline-danger" type="submit">Cerrar Sesion</button>
-            </a>
+            {{-- <a href="{{route('cerrar_sesion')}}"> --}}
+              <button class="btn btn-outline-danger" type="submit" id="btn-logout">Cerrar Sesion</button>
+            {{-- </a> --}}
           </div>
         </div>
       </nav>

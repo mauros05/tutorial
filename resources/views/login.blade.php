@@ -46,5 +46,5 @@
         }
     </style>
 
-    <script src="{{ asset('resources/js/custom.js') }}"></script>
+    <script src="{{ asset('resources/js/login.js') }}"></script>
 @stop
